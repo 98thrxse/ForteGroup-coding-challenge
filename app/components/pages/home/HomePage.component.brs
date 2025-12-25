@@ -113,6 +113,7 @@ sub destroy()
     m.cache = invalid
 
     m.rowList.unobserveFieldScoped("rowItemSelected")
+    m.rowList.unobserveFieldScoped("rowItemFocused")
     m.top.unobserveFieldScoped("focusedChild")
 
     if m.fetchChannelsTask <> invalid then
@@ -122,6 +123,7 @@ sub destroy()
 
     children = m.top.getChildren(-1, 0)
     for each item in children
+        item.callFunc("destroy")
         m.top.removeChild(item)
         item = invalid
     end for

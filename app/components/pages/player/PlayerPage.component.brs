@@ -5,6 +5,10 @@ sub init()
     m.global.router.callFunc("enableSideNav", m.top.id)
 end sub
 
+sub updateContent(content as object)
+    m.content = content
+end sub
+
 function onKeyEvent(key as string, press as boolean) as boolean
     handled = false
 
@@ -20,7 +24,7 @@ function onKeyEvent(key as string, press as boolean) as boolean
 end function
 
 function handleKeyBack() as boolean
-    m.global.router.callFunc("navigateBack")
+    m.global.router.callFunc("navigateBack", m.content)
 
     return true
 end function
