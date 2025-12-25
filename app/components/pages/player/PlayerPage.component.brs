@@ -1,6 +1,8 @@
 sub init()
     m.top.id = "PlayerPage"
     m.config = getPlayerPageConfig({})
+
+    m.global.router.callFunc("enableSideNav", m.top.id)
 end sub
 
 sub destroy()

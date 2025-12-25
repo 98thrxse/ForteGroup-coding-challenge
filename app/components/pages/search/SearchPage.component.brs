@@ -1,6 +1,8 @@
 sub init()
     m.top.id = "SearchPage"
     m.config = getSearchPageConfig({})
+
+    m.global.router.callFunc("enableSideNav", m.top.id)
 end sub
 
 sub destroy()

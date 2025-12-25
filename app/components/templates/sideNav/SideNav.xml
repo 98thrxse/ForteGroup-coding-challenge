@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SideNav" extends="Group">
+    <interface>
+        <field id="width" type="integer" />
+        <function name="updateButtons" />
+    </interface>
+
+    <children>
+        <Rectangle id="background" />
+        <ButtonGroup id="buttonGroup" />
+    </children>
+
+    <script type="text/brightscript" uri="./SideNav.config.brs" />
+    <script type="text/brightscript" uri="./SideNav.component.brs" />
+</component>

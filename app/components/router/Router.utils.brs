@@ -34,3 +34,23 @@ sub _createSpinner()
         m.top.appendChild(m.spinner)
     end if
 end sub
+
+sub _createSideNav()
+    if m.sideNav = invalid then
+        m.sideNav = createObject("roSGNode", "SideNav")
+        m.sideNav.visible = false
+        m.top.insertChild(m.sideNav, 1)
+    end if
+end sub
+
+function _hasSideNav() as boolean
+    for each route in m.routes.items()
+        value = route.value
+        if value.id = m.page.id then
+            sideNav = value.sideNav
+            return sideNav.enabled
+        end if
+    end for
+
+    return false
+end function
