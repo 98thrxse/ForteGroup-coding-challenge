@@ -2,6 +2,8 @@
 <component name="Page" extends="Group">
     <interface>
         <function name="updateContent" />
+        <function name="updateTranslation" />
+        <function name="updateSafetyRegion" />
         <function name="destroy" />
     </interface>
 

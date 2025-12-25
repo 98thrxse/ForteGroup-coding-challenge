@@ -1,6 +1,8 @@
 sub setup()
     m.routes = getRoutes()
 
+    m.uiResolution = m.global.deviceInfo.uiResolution
+    m.safetyMargins = m.global.theme.safetyMargins
     m.startup = m.global.startup
 
     _createSideNav()

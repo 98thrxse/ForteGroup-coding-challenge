@@ -60,6 +60,12 @@ sub onFetchChannelsTaskComplete(event as object)
     end if
 end sub
 
+sub updateSafetyRegion(safetyRegion as object)
+    horizMargin = safetyRegion[0]
+
+    m.rowList.itemSize = [m.style.rowList.itemSize[0] - horizMargin, m.rowList.itemSize[1]]
+end sub
+
 sub onFocusChanged()
     hasFocus = m.top.hasFocus()
     if m.rowList <> invalid and hasFocus then

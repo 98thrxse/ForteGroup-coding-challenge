@@ -18,6 +18,7 @@ end sub
 sub _switchPage(pageName as string, content = {} as object)
     _destroyPage()
     _createPage(pageName, content)
+    _onSideNavWidthChanged()
 end sub
 
 sub _createOverlay()
@@ -38,9 +39,39 @@ end sub
 sub _createSideNav()
     if m.sideNav = invalid then
         m.sideNav = createObject("roSGNode", "SideNav")
+        m.sideNav.observeFieldScoped("width", "_onSideNavWidthChanged")
         m.sideNav.visible = false
         m.top.insertChild(m.sideNav, 1)
     end if
+end sub
+
+sub _onSideNavWidthChanged()
+    width = m.sideNav.width
+
+    screenSize = m.uiResolution.name
+
+    horizMargin = m.safetyMargins.horizontal[screenSize]
+    vertMargin = m.safetyMargins.vertical[screenSize]
+
+    translation = []
+    isPlayer = m.page.id = m.routes.player.id
+
+    if _hasSideNav() and not isPlayer then
+        margin = width + horizMargin
+        translation = [margin, vertMargin]
+
+    else if _hasSideNav() and isPlayer then
+        translation = [width, 0]
+
+    else if not _hasSideNav() and not isPlayer then
+        translation = [horizMargin, vertMargin]
+
+    else if not _hasSideNav() and isPlayer then
+        translation = [0, 0]
+    end if
+
+    m.page.callFunc("updateTranslation", translation)
+    m.page.callFunc("updateSafetyRegion", translation)
 end sub
 
 function _hasSideNav() as boolean
