@@ -4,6 +4,11 @@
         <function name="destroy" />
     </interface>
 
+    <children>
+        <Poster id="image"/>
+        <BusySpinner id="spinner"/>
+    </children>
+
     <script type="text/brightscript" uri="./Overlay.config.brs" />
     <script type="text/brightscript" uri="./Overlay.component.brs" />
 </component>

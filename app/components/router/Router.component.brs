@@ -1,6 +1,8 @@
 sub setup()
     m.routes = getRoutes()
 
+    m.startup = m.global.startup
+
     _createSideNav()
     _createOverlay()
     _createSpinner()
@@ -11,6 +13,19 @@ end sub
 
 sub navigateToPage(pageName as string, content = {} as object)
     _switchPage(pageName, content)
+end sub
+
+sub setLoading(visible as boolean)
+    if m.startup then
+        m.overlay.visible = visible
+    else
+        m.spinner.visible = visible
+    end if
+
+    if m.startup and not m.overlay.visible then
+        m.startup = false
+        m.global.update({ startup: m.startup })
+    end if
 end sub
 
 sub enableSideNav(id as string)

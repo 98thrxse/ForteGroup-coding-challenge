@@ -6,6 +6,7 @@ sub init()
     deviceInfo: getDeviceInfo()
     theme: getTheme()
     router: router
+    startup: true
   }, true)
 
   setAppBackgroundColor()

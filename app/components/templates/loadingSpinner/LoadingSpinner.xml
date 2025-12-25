@@ -4,6 +4,10 @@
         <function name="destroy" />
     </interface>
 
+    <children>
+        <BusySpinner id="spinner"/>
+    </children>
+
     <script type="text/brightscript" uri="./LoadingSpinner.config.brs" />
     <script type="text/brightscript" uri="./LoadingSpinner.component.brs" />
 </component>
