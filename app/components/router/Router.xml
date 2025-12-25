@@ -6,6 +6,7 @@
 
         <function name="getRoutes" />
         <function name="navigateToPage" />
+        <function name="navigateBack" />
         <function name="setup" />
     </interface>
 

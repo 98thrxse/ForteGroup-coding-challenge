@@ -13,6 +13,7 @@ sub init()
 
     retrieveContent()
 
+    m.rowList.observeFieldScoped("rowItemSelected", "onRowItemSelected")
     m.top.observeFieldScoped("focusedChild", "onFocusChanged")
 end sub
 
@@ -66,6 +67,20 @@ sub updateSafetyRegion(safetyRegion as object)
     m.rowList.itemSize = [m.style.rowList.itemSize[0] - horizMargin, m.rowList.itemSize[1]]
 end sub
 
+sub onRowItemSelected(event as object)
+    rowItemSelected = event.getData()
+
+    rowIndex = rowItemSelected[0]
+    itemIndex = rowItemSelected[1]
+
+    row = m.rowList.content.getChild(rowIndex)
+    item = row.getChild(itemIndex)
+
+    routes = m.global.router.callFunc("getRoutes")
+    details = routes.details
+    m.global.router.callFunc("navigateToPage", details.id, item)
+end sub
+
 sub onFocusChanged()
     hasFocus = m.top.hasFocus()
     if m.rowList <> invalid and hasFocus then
@@ -74,6 +89,7 @@ sub onFocusChanged()
 end sub
 
 sub destroy()
+    m.rowList.unobserveFieldScoped("rowItemSelected")
     m.top.unobserveFieldScoped("focusedChild")
 
     if m.fetchChannelsTask <> invalid then

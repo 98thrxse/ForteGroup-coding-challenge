@@ -1,5 +1,6 @@
 sub setup()
     m.routes = getRoutes()
+    reset()
 
     m.uiResolution = m.global.deviceInfo.uiResolution
     m.safetyMargins = m.global.theme.safetyMargins
@@ -15,6 +16,16 @@ end sub
 
 sub navigateToPage(pageName as string, content = {} as object)
     _switchPage(pageName, content)
+    _pushToHistory(pageName)
+end sub
+
+sub navigateBack(content = {} as object)
+    _popFromHistory()
+
+    pageName = _peekFromHistory()
+    if pageName <> invalid and not pageName.isEmpty() then
+        _switchPage(pageName, content)
+    end if
 end sub
 
 sub setLoading(visible as boolean)
@@ -39,6 +50,10 @@ sub enableSideNav(id as string)
             m.sideNav.callFunc("updateButtons", id)
         end if
     end for
+end sub
+
+sub reset()
+    _resetHistory()
 end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean

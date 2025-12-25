@@ -85,3 +85,19 @@ function _hasSideNav() as boolean
 
     return false
 end function
+
+sub _pushToHistory(id as string)
+    m._history.push(id)
+end sub
+
+sub _popFromHistory()
+    m._history.pop()
+end sub
+
+function _peekFromHistory() as string
+    return m._history.peek()
+end function
+
+sub _resetHistory()
+    m._history = []
+end sub
