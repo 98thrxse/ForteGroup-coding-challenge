@@ -1,0 +1,21 @@
+# Attributes
+# supports_input_launch=1
+
+# Channel Details
+title=ForteGroup
+major_version=1
+minor_version=0
+build_version=0
+
+# Channel Assets
+mm_icon_focus_fhd=pkg:/assets/images/icon/fhd.png
+mm_icon_focus_hd=pkg:/assets/images/icon/hd.png
+mm_icon_focus_sd=pkg:/assets/images/icon/sd.png
+
+splash_screen_fhd=pkg:/assets/images/splash/fhd.png
+splash_screen_hd=pkg:/assets/images/splash/hd.png
+splash_screen_sd=pkg:/assets/images/splash/sd.png
+splash_min_time=0
+
+# Resolution
+ui_resolutions=hd,fhd

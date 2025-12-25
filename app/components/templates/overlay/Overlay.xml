@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="Overlay" extends="Group">
+    <interface>
+        <function name="destroy" />
+    </interface>
+
+    <script type="text/brightscript" uri="./Overlay.config.brs" />
+    <script type="text/brightscript" uri="./Overlay.component.brs" />
+</component>
