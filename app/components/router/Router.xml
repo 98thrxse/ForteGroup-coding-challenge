@@ -4,6 +4,11 @@
         <function name="setLoading" />
         <function name="enableSideNav" />
 
+        <function name="loadFromCache" />
+        <function name="saveToCache" />
+        <function name="removeFromCache" />
+        <function name="resetCache" />
+
         <function name="getRoutes" />
         <function name="navigateToPage" />
         <function name="navigateBack" />

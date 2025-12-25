@@ -52,8 +52,25 @@ sub enableSideNav(id as string)
     end for
 end sub
 
+sub saveToCache(id as string, data as object)
+    m.cache[id] = data
+end sub
+
+sub removeFromCache(id as string)
+    m.cache[id] = invalid
+end sub
+
+function loadFromCache(id as string) as object
+    return m.cache[id]
+end function
+
+sub resetCache()
+    m.cache = {}
+end sub
+
 sub reset()
     _resetHistory()
+    resetCache()
 end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean

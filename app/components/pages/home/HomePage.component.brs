@@ -1,5 +1,6 @@
 sub init()
     m.top.id = "HomePage"
+    m.cache = {}
     m.config = getHomePageConfig({
         safetyMargins: m.global.theme.safetyMargins
         uiResolution: m.global.deviceInfo.uiResolution
@@ -13,13 +14,22 @@ sub init()
 
     retrieveContent()
 
+    m.rowList.observeFieldScoped("rowItemFocused", "onRowItemFocused")
     m.rowList.observeFieldScoped("rowItemSelected", "onRowItemSelected")
     m.top.observeFieldScoped("focusedChild", "onFocusChanged")
 end sub
 
 sub retrieveContent()
-    m.global.router.callFunc("setLoading", true)
-    createFetchChannelsTask()
+    cache = m.global.router.callFunc("loadFromCache", m.top.id)
+    if cache <> invalid and cache.count() > 0 then
+        showResult(cache.content, cache.showRowLabel)
+        m.rowList.update({
+            jumpToRowItem: cache.jumpToRowItem
+        })
+    else
+        m.global.router.callFunc("setLoading", true)
+        createFetchChannelsTask()
+    end if
 end sub
 
 sub createFetchChannelsTask()
@@ -50,21 +60,31 @@ sub onFetchChannelsTaskComplete(event as object)
                 contentNode = createObject("roSGNode", "ContentNode")
                 contentNode.update(content, true)
 
-                m.rowList.update({
-                    content: contentNode
-                    showRowLabel: showRowLabel
-                })
-                m.global.router.callFunc("enableSideNav", m.top.id)
+                showResult(contentNode, showRowLabel)
                 m.global.router.callFunc("setLoading", false)
             end if
         end if
     end if
 end sub
 
+sub showResult(contentNode as object, showRowLabel as object)
+    m.cache = {
+        content: contentNode
+        showRowLabel: showRowLabel
+    }
+    m.rowList.update(m.cache)
+    m.global.router.callFunc("enableSideNav", m.top.id)
+end sub
+
 sub updateSafetyRegion(safetyRegion as object)
     horizMargin = safetyRegion[0]
 
     m.rowList.itemSize = [m.style.rowList.itemSize[0] - horizMargin, m.rowList.itemSize[1]]
+end sub
+
+sub onRowItemFocused(event as object)
+    rowItemFocused = event.getData()
+    m.cache.jumpToRowItem = rowItemFocused
 end sub
 
 sub onRowItemSelected(event as object)
@@ -89,6 +109,9 @@ sub onFocusChanged()
 end sub
 
 sub destroy()
+    m.global.router.callFunc("saveToCache", m.top.id, m.cache)
+    m.cache = invalid
+
     m.rowList.unobserveFieldScoped("rowItemSelected")
     m.top.unobserveFieldScoped("focusedChild")
 
