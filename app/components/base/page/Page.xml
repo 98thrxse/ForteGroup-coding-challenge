@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="Page" extends="Group">
     <interface>
+        <function name="updateContent" />
         <function name="destroy" />
     </interface>
 

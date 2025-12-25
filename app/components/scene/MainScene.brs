@@ -3,6 +3,8 @@ sub init()
 
   m.global.update({
     env: "prod"
+    deviceInfo: getDeviceInfo()
+    theme: getTheme()
     router: router
   }, true)
 
@@ -13,5 +15,6 @@ end sub
 
 sub setAppBackgroundColor()
   scene = m.top.getScene()
+  scene.backgroundColor = m.global.theme.colors.background
   scene.backgroundUri = ""
 end sub

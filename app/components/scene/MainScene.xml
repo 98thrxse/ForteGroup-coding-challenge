@@ -4,5 +4,8 @@
         <Router id="router" />
     </children>
 
+    <script type="text/brightscript" uri="../utils/Theme.brs" />
+    <script type="text/brightscript" uri="../utils/DeviceInfo.brs" />
+
     <script type="text/brightscript" uri="./MainScene.brs" />
 </component>
