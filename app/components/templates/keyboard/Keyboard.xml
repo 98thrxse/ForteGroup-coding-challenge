@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="Keyboard" extends="DynamicCustomKeyboard">
+    <interface>
+        <field id="text" type="string" />
+
+        <function name="keySelected" />
+        <function name="setTranslationX" />
+        <function name="destroy" />
+    </interface>
+
+    <script type="text/brightscript" uri="./Keyboard.config.brs" />
+    <script type="text/brightscript" uri="./Keyboard.utils.brs" />
+    <script type="text/brightscript" uri="./Keyboard.component.brs" />
+</component>

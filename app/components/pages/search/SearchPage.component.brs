@@ -2,30 +2,30 @@ sub init()
     m.top.id = "SearchPage"
     m.config = getSearchPageConfig({})
 
+    m.style = m.config.style
+    for each item in m.style.items()
+        m.[item.key] = m.top.findNode(item.key)
+        m.[item.key].update(item.value)
+    end for
+
     m.global.router.callFunc("enableSideNav", m.top.id)
+    m.top.observeFieldScoped("focusedChild", "onFocusChanged")
 end sub
 
-function onKeyEvent(key as string, press as boolean) as boolean
-    handled = false
+sub updateSafetyRegion(_safetyRegion as object)
+    m.keyboard.callFunc("setTranslationX")
+end sub
 
-    if not press then
-        return handled
+sub onFocusChanged()
+    hasFocus = m.top.hasFocus()
+    if hasFocus then
+        m.keyboard.setFocus(true)
     end if
-
-    if key = "back" then
-        handled = handleKeyBack()
-    end if
-
-    return handled
-end function
-
-function handleKeyBack() as boolean
-    m.global.router.callFunc("navigateBack")
-
-    return true
-end function
+end sub
 
 sub destroy()
+    m.top.unobserveFieldScoped("focusedChild")
+
     children = m.top.getChildren(-1, 0)
     for each item in children
         item.callFunc("destroy")

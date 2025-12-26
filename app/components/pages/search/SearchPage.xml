@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="SearchPage" extends="Page">
+    <children>
+        <Label id="hint" />
+        <RowList id="rowList" />
+        <Keyboard id="keyboard" />
+    </children>
+
     <script type="text/brightscript" uri="./SearchPage.config.brs" />
     <script type="text/brightscript" uri="./SearchPage.component.brs" />
 </component>
