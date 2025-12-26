@@ -23,9 +23,12 @@ sub navigateBack(content = {} as object)
     _popFromHistory()
 
     pageName = _peekFromHistory()
-    if pageName <> invalid and not pageName.isEmpty() then
-        _switchPage(pageName, content)
+    if pageName = invalid or pageName.isEmpty() then
+        home = m.routes.home
+        pageName = home.id
     end if
+
+    _switchPage(pageName, content)
 end sub
 
 sub setLoading(visible as boolean)
@@ -68,8 +71,12 @@ sub resetCache()
     m.cache = {}
 end sub
 
+sub resetHistory()
+    m.history = []
+end sub
+
 sub reset()
-    _resetHistory()
+    resetHistory()
     resetCache()
 end sub
 

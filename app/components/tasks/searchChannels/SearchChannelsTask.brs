@@ -81,7 +81,6 @@ function _sortByCategory(channels as object) as object
         end if
 
         item = {
-            type: "ContentNode"
             id: channel.id
             title: title
             isLive: isLive
@@ -98,24 +97,23 @@ function _sortByCategory(channels as object) as object
     '     map[category] = _sortLiveFirst(map[category])
     ' end for
 
-    content = {
-        type: "ContentNode"
-        children: []
-    }
+    content = []
     showRowLabel = []
 
     for each category in map.keys()
         showRowLabel.push(category <> invalid and not category.isEmpty())
 
-        content.children.push({
-            type: "ContentNode"
+        content.push({
             title: category
             children: map[category]
         })
     end for
 
+    contentNode = createObject("roSGNode", "ContentNode")
+    contentNode.update(content, true)
+
     return {
-        content: content
+        content: contentNode
         showRowLabel: showRowLabel
     }
 end function

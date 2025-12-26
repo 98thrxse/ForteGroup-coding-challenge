@@ -87,17 +87,17 @@ function _hasSideNav() as boolean
 end function
 
 sub _pushToHistory(id as string)
-    m._history.push(id)
+    m.history.push(id)
 end sub
 
 sub _popFromHistory()
-    m._history.pop()
+    m.history.pop()
 end sub
 
 function _peekFromHistory() as string
-    return m._history.peek()
+    if m.history.count() > 0 then
+        return m.history.peek()
+    else
+        return ""
+    end if
 end function
-
-sub _resetHistory()
-    m._history = []
-end sub

@@ -92,33 +92,28 @@ sub onSearchChannelsTaskComplete(event as object)
     end if
 
     data = event.getData()
-    if data <> invalid then
+    if data <> invalid and not data.doesExist("error") then
         content = data.content
         showRowLabel = data.showRowLabel
 
         if content <> invalid then
-            if not content.doesExist("error") then
-                if content.children.count() > 0 then
-                    contentNode = createObject("roSGNode", "ContentNode")
-                    contentNode.update(content, true)
-
-                    showResult(contentNode, showRowLabel)
-                else
-                    showEmptyResult()
-                end if
-
-                m.global.router.callFunc("setLoading", false)
+            if content.getChildCount() > 0 then
+                showResult(content, showRowLabel)
+            else
+                showEmptyResult()
             end if
+
+            m.global.router.callFunc("setLoading", false)
         end if
     end if
 end sub
 
-sub showResult(contentNode as object, showRowLabel as object)
+sub showResult(content as object, showRowLabel as object, jumpToRowItem = [0, 0] as object)
     m.hint.visible = false
     m.rowList.visible = true
 
     m.cache = {
-        content: contentNode
+        content: content
         showRowLabel: showRowLabel
         text: m.keyboard.text
     }
@@ -162,26 +157,6 @@ sub onFocusChanged()
     end if
 end sub
 
-sub destroy()
-    m.global.router.callFunc("saveToCache", m.top.id, m.cache)
-    m.cache = invalid
-
-    m.lastFocused = invalid
-    m.top.unobserveFieldScoped("focusedChild")
-
-    if m.searchChannelsTask <> invalid then
-        m.searchChannelsTask.unobserveFieldScoped("response")
-        m.searchChannelsTask.control = "stop"
-    end if
-
-    children = m.top.getChildren(-1, 0)
-    for each item in children
-        item.callFunc("destroy")
-        m.top.removeChild(item)
-        item = invalid
-    end for
-end sub
-
 function onKeyEvent(key as string, press as boolean) as boolean
     handled = false
 
@@ -222,7 +197,7 @@ function handleKeyDown() as boolean
 end function
 
 function handleKeyBack() as boolean
-    m.global.router.callFunc("navigateBack", m.content)
+    m.global.router.callFunc("navigateBack")
 
     return true
 end function
@@ -237,3 +212,23 @@ function handleKeyOptions() as boolean
 
     return true
 end function
+
+sub destroy()
+    m.global.router.callFunc("saveToCache", m.top.id, m.cache)
+    m.cache = invalid
+
+    m.lastFocused = invalid
+    m.top.unobserveFieldScoped("focusedChild")
+
+    if m.searchChannelsTask <> invalid then
+        m.searchChannelsTask.unobserveFieldScoped("response")
+        m.searchChannelsTask.control = "stop"
+    end if
+
+    children = m.top.getChildren(-1, 0)
+    for each item in children
+        item.callFunc("destroy")
+        m.top.removeChild(item)
+        item = invalid
+    end for
+end sub

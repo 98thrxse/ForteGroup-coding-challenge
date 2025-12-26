@@ -50,7 +50,8 @@ end sub
 
 sub onButtonSelected(event as object)
     id = event.getNode()
-    m.global.router.callFunc("navigateToPage", id, m.content)
+    m.global.router.callFunc("resetHistory")
+    m.global.router.callFunc("navigateToPage", id)
 end sub
 
 sub onFocusChanged()

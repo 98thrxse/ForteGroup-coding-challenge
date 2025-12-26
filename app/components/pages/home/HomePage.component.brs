@@ -51,25 +51,20 @@ sub onFetchChannelsTaskComplete(event as object)
     end if
 
     data = event.getData()
-    if data <> invalid then
+    if data <> invalid and not data.doesExist("error") then
         content = data.content
         showRowLabel = data.showRowLabel
 
         if content <> invalid then
-            if not content.doesExist("error") then
-                contentNode = createObject("roSGNode", "ContentNode")
-                contentNode.update(content, true)
-
-                showResult(contentNode, showRowLabel)
-                m.global.router.callFunc("setLoading", false)
-            end if
+            showResult(content, showRowLabel)
+            m.global.router.callFunc("setLoading", false)
         end if
     end if
 end sub
 
-sub showResult(contentNode as object, showRowLabel as object)
+sub showResult(content as object, showRowLabel as object)
     m.cache = {
-        content: contentNode
+        content: content
         showRowLabel: showRowLabel
     }
     m.rowList.update(m.cache)

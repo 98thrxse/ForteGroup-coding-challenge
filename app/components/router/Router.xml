@@ -9,6 +9,8 @@
         <function name="removeFromCache" />
         <function name="resetCache" />
 
+        <function name="resetHistory" />
+
         <function name="getRoutes" />
         <function name="navigateToPage" />
         <function name="navigateBack" />
