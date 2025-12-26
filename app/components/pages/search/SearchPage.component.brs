@@ -16,11 +16,12 @@ sub init()
     retrieveContent()
 
     m.lastFocused = invalid
+    m.onKeyboardTextDebounced = debounce(onKeyboardTextChanged, m.config.debounce)
     m.global.router.callFunc("enableSideNav", m.top.id)
 
     m.rowList.observeFieldScoped("rowItemFocused", "onRowItemFocused")
     m.rowList.observeFieldScoped("rowItemSelected", "onRowItemSelected")
-    m.keyboard.observeFieldScoped("text", "onKeyboardTextChanged")
+    m.keyboard.observeFieldScoped("text", "callOnKeyboardTextDebounced")
     m.top.observeFieldScoped("focusedChild", "onFocusChanged")
 end sub
 
@@ -52,6 +53,10 @@ sub onRowItemSelected(event as object)
     routes = m.global.router.callFunc("getRoutes")
     details = routes.details
     m.global.router.callFunc("navigateToPage", details.id, item)
+end sub
+
+sub callOnKeyboardTextDebounced(event as object)
+    m.onKeyboardTextDebounced(event)
 end sub
 
 sub onKeyboardTextChanged(event as object)

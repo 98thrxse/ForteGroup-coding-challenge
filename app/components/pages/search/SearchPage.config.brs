@@ -65,6 +65,7 @@ function getSearchPageConfig(settings as object)
             empty: "No results.."
         }
         length: 3
+        debounce: 0.5
         style: style
     }
 

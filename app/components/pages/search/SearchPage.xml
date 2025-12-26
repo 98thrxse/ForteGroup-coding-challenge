@@ -6,6 +6,7 @@
         <Keyboard id="keyboard" />
     </children>
 
+    <script type="text/brightscript" uri="../../utils/Debounce.brs" />
     <script type="text/brightscript" uri="./SearchPage.config.brs" />
     <script type="text/brightscript" uri="./SearchPage.component.brs" />
 </component>
