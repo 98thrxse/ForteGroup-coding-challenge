@@ -31,17 +31,40 @@ function _findByTitleOrCategory(channels as object, text as string) as object
         match = false
 
         if channel.doesExist("title") and channel.title <> invalid then
-            match = Instr(1, LCase(channel.title), LCase(text)) > 0
+            match = Instr(1, LCase(channel.title), LCase(text)) > 0 or _matchAcronym(channel.title, text)
         end if
 
-        if not match and channel.doesExist("category") and channel.category <> invalid then
-            match = Instr(1, LCase(channel.category), LCase(text)) > 0
+        if channel.doesExist("category") and channel.category <> invalid then
+            match = match or (Instr(1, LCase(channel.category), LCase(text)) > 0)
         end if
 
         if match then result.push(channel)
     end for
 
     return result
+end function
+
+function _matchAcronym(name as string, text as string) as boolean
+    words = name.split(" ")
+    acronym = ""
+
+    for each word in words
+        if not word.isEmpty() then
+            firstChar = mid(word, 1, 1)
+            if (firstChar >= "A" and firstChar <= "Z") or (firstChar >= "a" and firstChar <= "z") then
+                acronym += firstChar
+            end if
+
+            for i = 1 to Len(word)
+                c = mid(word, i, 1)
+                if c >= "0" and c <= "9" then
+                    acronym += c
+                end if
+            end for
+        end if
+    end for
+
+    return LCase(left(acronym, len(text))) = LCase(text)
 end function
 
 function _sortByCategory(channels as object) as object

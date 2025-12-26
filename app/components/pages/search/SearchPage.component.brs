@@ -205,9 +205,12 @@ end function
 function handleKeyOptions() as boolean
     if m.rowList.hasFocus() then
         m.keyboard.setFocus(true)
+        m.lastFocused = m.keyboard
 
     else if m.rowList.content <> invalid and m.rowList.visible then
         m.rowList.setFocus(true)
+        m.lastFocused = m.rowList
+
     end if
 
     return true
