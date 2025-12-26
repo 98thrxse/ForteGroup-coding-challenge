@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SearchChannelsTask" extends="API">
+    <script type="text/brightscript" uri="./SearchChannelsTask.brs" />
+</component>

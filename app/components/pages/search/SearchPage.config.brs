@@ -15,6 +15,7 @@ function getSearchPageConfig(settings as object)
     }
 
     config = {
+        length: 3
         style: style
     }
 
