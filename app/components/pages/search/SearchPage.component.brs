@@ -108,7 +108,7 @@ sub onSearchChannelsTaskComplete(event as object)
     end if
 end sub
 
-sub showResult(content as object, showRowLabel as object, jumpToRowItem = [0, 0] as object)
+sub showResult(content as object, showRowLabel as object)
     m.hint.visible = false
     m.rowList.visible = true
 
