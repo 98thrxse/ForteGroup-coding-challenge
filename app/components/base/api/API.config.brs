@@ -1,7 +1,8 @@
 function getAPIConfig()
     return {
         prod: {
-            base: "pkg:/data/channels.json/"
+            channelsV1: "pkg:/data/channelsV1.json/"
+            channelsV2: "pkg:/data/channelsV2.json/"
         }
         requests: 3
     }

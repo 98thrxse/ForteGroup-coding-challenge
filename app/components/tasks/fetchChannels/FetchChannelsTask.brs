@@ -1,7 +1,7 @@
 sub execute()
     env = m.global.env
     config = getAPIConfig()
-    base = config[env].base
+    base = config[env].channelsV1
 
     rawResponse = ReadAsciiFile(base)
     if not rawResponse.isEmpty() then
